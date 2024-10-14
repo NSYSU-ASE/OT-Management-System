@@ -1,0 +1,53 @@
+﻿@* 這是資產總覽圖表的部分視圖 *@
+<div class="container mt-5">
+    <div class="row">
+        <!-- 第一個圖表 -->
+        <div class="col-md-6">
+            <h4 class="text-center">資產類型分佈</h4>
+            <canvas id="assetsChart" width="400" height="300"></canvas>
+        </div>
+        <!-- 第二個圖表 -->
+        <div class="col-md-6">
+            <h4 class="text-center">異常資產佔比</h4>
+            <canvas id="abnormalAssetsChart" width="400" height="300"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 第一個圖表：資產類型分佈
+    var ctx1 = document.getElementById('assetsChart').getContext('2d');
+    var assetsChart = new Chart(ctx1, {
+        type: 'bar',
+        data: {
+            labels: ['資產類型A', '資產類型B', '資產類型C'],
+            datasets: [{
+                label: '資產數量',
+                data: [10, 20, 30],
+                backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(75, 192, 192, 0.2)'],
+                borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(75, 192, 192, 1)'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: { beginAtZero: true }
+            }
+        }
+    });
+
+    // 第二個圖表：異常資產佔比
+    var ctx2 = document.getElementById('abnormalAssetsChart').getContext('2d');
+    var abnormalAssetsChart = new Chart(ctx2, {
+        type: 'pie',
+        data: {
+            labels: ['正常資產', '異常資產'],
+            datasets: [{
+                data: [2500, 200],
+                backgroundColor: ['rgba(75, 192, 192, 0.5)', 'rgba(255, 99, 132, 0.5)'],
+                borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 99, 132, 1)'],
+                borderWidth: 1
+            }]
+        }
+    });
+</script>

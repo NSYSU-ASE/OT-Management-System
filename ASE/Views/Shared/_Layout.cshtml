@@ -7,35 +7,42 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/ASE.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" /> <!-- jQuery UI 樣式，用於實現拖放和其他 UI 效果 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/10.0.1/gridstack.min.css" /> <!-- Gridstack 樣式，用於使網格區域更有秩序並能支持拖動 -->
 
     <!-- 引入 Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- 引入 Chart.js，用於製作圖表 -->
+    <!-- 引入 jQuery 和 jQuery UI：提供基本的拖放功能。 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> <!-- 引入 jQuery，為了實現動態效果和方便 DOM 操作 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script> <!-- 引入 jQuery UI，添加拖放和動畫功能 -->
+    <!-- 引入 Gridstack.js讓區塊更有秩序地對齊並且能拖動。-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gridstack.js/10.0.1/gridstack-all.min.js"></script> <!-- 引入 Gridstack.js，使區塊能拖動和調整大小 -->
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ASE</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ASE</a> <!-- 網站標誌連結到首頁 -->
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span> <!-- 用於顯示導航菜單的按鈕（在小螢幕上） -->
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a> <!-- 導航連結到主頁面 -->
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Glpi" asp-action="Index">GLPI</a>
+                            <a class="nav-link" asp-area="" asp-controller="Glpi" asp-action="Index">GLPI</a> <!-- 導航連結到 GLPI 頁面 -->
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="PacketAnalysis" asp-action="Index">封包分析</a>
+                            <a class="nav-link" asp-area="" asp-controller="PacketAnalysis" asp-action="Index">封包分析</a> <!-- 導航連結到封包分析頁面 -->
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="VulnerabilityManagement" asp-action="Index">漏洞管理</a>
+                            <a class="nav-link" asp-area="" asp-controller="VulnerabilityManagement" asp-action="Index">漏洞管理</a> <!-- 導航連結到漏洞管理頁面 -->
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="AssetTopology" asp-action="Index">資產拓樸圖</a>
+                            <a class="nav-link" asp-area="" asp-controller="AssetTopology" asp-action="Index">資產拓樸圖</a> <!-- 導航連結到資產拓樸圖頁面 -->
                     </ul>
                 </div>
             </div>
@@ -43,19 +50,19 @@
     </header>
     <div class="container">
         <main role="main" class="pb-3">
-            @RenderBody()
+            @RenderBody() <!-- 這裡用於顯示每個視圖特定的內容 -->
         </main>
     </div>
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - ASE - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - ASE - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> <!-- 頁腳顯示版權訊息和隱私政策連結 -->
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+
+    @await RenderSectionAsync("Scripts", required: false) <!-- 為特定視圖提供附加腳本區域 -->
 </body>
 </html>
-
