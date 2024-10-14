@@ -1,0 +1,103 @@
+﻿@model dynamic
+@{
+    ViewData["Title"] = "資產拓撲圖";
+}
+
+<h2>資產拓撲圖</h2>
+
+<!-- 用來顯示拓撲圖的容器，背景顏色改為白色 -->
+<div id="cy" style="width: 100%; height: 600px; background-color: white;"></div>
+
+<!-- 用來顯示節點詳細資訊的區域 -->
+<div id="node-info" style="padding: 10px; background-color: white; border: 1px solid #ccc; margin-top: 10px;">
+    點擊節點查看詳細資訊
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.19.0/cytoscape.min.js"></script>
+
+<script type="text/javascript">
+    // 初始化 Cytoscape.js 並繪製拓撲圖
+    var cy = cytoscape({
+        container: document.getElementById('cy'), // 繪製圖形的容器
+        style: [
+            {
+                selector: 'node',
+                style: {
+                    'label': 'data(label)',
+                    'width': 50,
+                    'height': 50
+                }
+            },
+            {
+                selector: 'edge',
+                style: {
+                    'width': 3,
+                    'line-color': '#ccc',
+                    'target-arrow-color': '#ccc',
+                    'target-arrow-shape': 'triangle'
+                }
+            },
+            {
+                selector: 'node[type="router"]',
+                style: {
+                    'background-color': '#FFA500', // 橙色代表Router
+                    'shape': 'rectangle'
+                }
+            },
+            {
+                selector: 'node[type="switch"]',
+                style: {
+                    'background-color': '#00BFFF', // 天藍色代表Switch
+                    'shape': 'ellipse'
+                }
+            },
+            {
+                selector: 'node[type="server"]',
+                style: {
+                    'background-color': '#32CD32', // 綠色代表Server
+                    'shape': 'triangle'
+                }
+            },
+            {
+                selector: 'node[type="firewall"]',
+                style: {
+                    'background-color': '#DC143C', // 紅色代表Firewall
+                    'shape': 'diamond'
+                }
+            },
+            {
+                selector: 'node[type="workstation"]',
+                style: {
+                    'background-color': '#007bff', // 藍色代表Workstation
+                }
+            },
+            {
+                selector: 'node.warning',
+                style: {
+                    'background-color': 'red',
+                    'border-color': 'yellow',
+                    'border-width': 3
+                }
+            }
+        ],
+        elements: {
+            nodes: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.nodes)),
+            edges: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.edges))
+            },
+        layout: {
+            name: 'breadthfirst',
+            directed: true, // 讓佈局顯示方向
+            padding: 10
+        }
+    });
+
+    // 點擊節點時，顯示詳細資訊
+    cy.on('tap', 'node', function (evt) {
+        var node = evt.target;
+        document.getElementById('node-info').innerHTML = '節點ID: ' + node.id() + '<br>設備: ' + node.data('label') + '<br>類型: ' + node.data('type');
+    });
+
+    // 模擬設備故障，將指定節點標記為警示
+    var problemNode = cy.getElementById('3'); // 假設設備 3 出現問題
+    problemNode.addClass('warning');
+</script>

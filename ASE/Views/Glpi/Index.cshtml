@@ -1,0 +1,43 @@
+﻿@model dynamic
+@{
+    ViewData["Title"] = "GLPI";
+}
+<div class="container text-center">
+    <h2>選擇 GLPI 開啟方式</h2>
+    <p>請選擇以下兩種方式來開啟 GLPI 系統：</p>
+
+    <!-- 按鈕: 點擊後顯示下拉選單 -->
+    <button type="button" class="btn btn-primary" onclick="showUrlSelection()">直接開啟 GLPI</button>
+    <button type="button" class="btn btn-secondary" onclick="openGlpiEmbed()">內嵌 GLPI</button>
+
+    <!-- 下拉選單，預設為隱藏狀態 -->
+    <div id="urlSelection" class="form-group" style="display: none; margin-top: 20px;">
+        <label for="glpiUrl">選擇 GLPI 網址:</label>
+        <select id="glpiUrl" class="form-control" style="width: 300px; margin: 0 auto;">
+            <option value="http://140.117.172.203/glpi">實驗室203</option>
+            <option value="http://localhost/glpi">本機</option>
+        </select>
+        <br />
+        <!-- 確認開啟 GLPI 的按鈕 -->
+        <button type="button" class="btn btn-success" onclick="openGlpiDirect()">確認開啟 GLPI</button>
+    </div>
+
+</div>
+
+<script>
+    // 顯示下拉選單的函數
+    function showUrlSelection() {
+        document.getElementById("urlSelection").style.display = "block";  // 顯示下拉選單
+    }
+
+    // 直接開啟 GLPI，在新標籤中打開
+    function openGlpiDirect() {
+        var selectedUrl = document.getElementById("glpiUrl").value;  // 獲取使用者選擇的 URL
+        window.open(selectedUrl, '_blank');  // 新標籤開啟選擇的網址
+    }
+
+    // 內嵌 GLPI，跳轉到嵌入頁面
+    function openGlpiEmbed() {
+        window.location.href = "/Glpi/Embed";  // 內嵌 GLPI 頁面
+    }
+</script>
