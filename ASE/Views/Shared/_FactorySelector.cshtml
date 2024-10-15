@@ -1,0 +1,44 @@
+﻿@{
+    // Partial view for selecting factory (K1 ~ K21)
+}
+
+<div class="factory-selector text-center mt-4">
+    <!-- 廠區選擇下拉選單 -->
+    <div class="form-group">
+        <label for="factorySelect">選擇廠區:</label>
+        <select id="factorySelect" class="form-control mx-auto" style="width: 200px;">
+            <option value="K1">K1 廠區</option>
+            <option value="K2">K2 廠區</option>
+            <option value="K3">K3 廠區</option>
+            <option value="K4">K4 廠區</option>
+            <option value="K5">K5 廠區</option>
+            <option value="K6">K6 廠區</option>
+            <option value="K7">K7 廠區</option>
+            <option value="K8">K8 廠區</option>
+            <option value="K9">K9 廠區</option>
+            <option value="K10">K10 廠區</option>
+            <option value="K11">K11 廠區</option>
+            <option value="K12">K12 廠區</option>
+            <option value="K13">K13 廠區</option>
+            <option value="K14">K14 廠區</option>
+            <option value="K15">K15 廠區</option>
+            <option value="K16">K16 廠區</option>
+            <option value="K17">K17 廠區</option>
+            <option value="K18">K18 廠區</option>
+            <option value="K19">K19 廠區</option>
+            <option value="K20">K20 廠區</option>
+            <option value="K21">K21 廠區</option>
+        </select>
+    </div>
+</div>
+
+<script>
+    jQuery(document).ready(function ($) {
+        // 監聽下拉選單的變化事件
+        $('#factorySelect').change(function () {
+            const selectedFactory = $(this).val();
+            console.log('Selected Factory:', selectedFactory);
+            // TODO: 可根據選擇的廠區，使用 AJAX 從後端獲取該廠區的資產數據，並更新主頁面顯示
+        });
+    });
+</script>

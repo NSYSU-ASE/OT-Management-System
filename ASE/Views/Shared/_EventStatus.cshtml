@@ -1,0 +1,61 @@
+﻿@{
+    // 用於顯示事件狀態摘要的部分視圖
+}
+
+<div class="event-status-summary text-center mt-4" style="border: 1px solid #ccc; padding: 15px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+    <div class="d-flex justify-content-around align-items-center">
+        <!-- 總事件數量 -->
+        <div class="event-total p-3">
+            <!-- 顯示總事件數，字體加粗，較大的字體 -->
+            <div class="event-number font-weight-bold" style="font-size: 2.5rem;">5.7k</div>
+            <div class="event-label">Total Events</div>
+        </div>
+        <!-- 事件嚴重程度 -->
+        <div class="event-severity d-flex">
+            <div class="p-3">
+                <!-- Critical 嚴重程度的圓圈 -->
+                <div class="circle-indicator" style="width: 170px; height: 170px; border-radius: 50%; border: 25px solid #c0392b; display: flex; align-items: center; justify-content: center;">
+                    <div class="text-center">
+                        <!-- Critical 事件的數量 -->
+                        <div class="event-severity-number font-weight-bold" style="font-size: 2rem;">0</div>
+                        <!-- Critical 的標籤 -->
+                        <div class="event-severity-label mt-2">Critical</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3">
+                <!-- High 嚴重程度的圓圈 -->
+                <div class="circle-indicator" style="width: 170px; height: 170px; border-radius: 50%; border: 25px solid #e67e22; display: flex; align-items: center; justify-content: center;">
+                    <div class="text-center">
+                        <!-- High 事件的數量 -->
+                        <div class="event-severity-number font-weight-bold" style="font-size: 2rem;">5k</div>
+                        <!-- High 的標籤 -->
+                        <div class="event-severity-label mt-2">High</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3">
+                <!-- Medium 嚴重程度的圓圈 -->
+                <div class="circle-indicator" style="width: 170px; height: 170px; border-radius: 50%; border: 25px solid #f1c40f; display: flex; align-items: center; justify-content: center;">
+                    <div class="text-center">
+                        <!-- Medium 事件的數量 -->
+                        <div class="event-severity-number font-weight-bold" style="font-size: 2rem;">1k</div>
+                        <!-- Medium 的標籤 -->
+                        <div class="event-severity-label mt-2">Medium</div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-3">
+                <!-- Low 嚴重程度的圓圈 -->
+                <div class="circle-indicator" style="width: 170px; height: 170px; border-radius: 50%; border: 25px solid #27ae60; display: flex; align-items: center; justify-content: center;">
+                    <div class="text-center">
+                        <!-- Low 事件的數量 -->
+                        <div class="event-severity-number font-weight-bold" style="font-size: 2rem;">2</div>
+                        <!-- Low 的標籤 -->
+                        <div class="event-severity-label mt-2">Low</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

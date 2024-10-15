@@ -1,0 +1,140 @@
+﻿@{
+            // 模組化的日期範圍選擇器視圖
+}
+
+<div class="date-range-picker text-center mt-4">
+    <div class="d-inline-flex align-items-center">
+        <!-- 起始日期選擇 -->
+        <button type="button" class="btn btn-secondary" id="startPrev"><</button>
+        <input type="text" class="mx-2" id="startDate" style="cursor: pointer;" value="@DateTime.Now.ToString("yyyy-MM-dd")" readonly />
+        <button type="button" class="btn btn-secondary" id="startNext">></button>
+    </div>
+
+    <div class="d-inline-flex align-items-center ml-4">
+        <!-- 終止日期選擇 -->
+        <button type="button" class="btn btn-secondary" id="endPrev"><</button>
+        <input type="text" class="mx-2" id="endDate" style="cursor: pointer;" value="@DateTime.Now.ToString("yyyy-MM-dd")" readonly />
+        <button type="button" class="btn btn-secondary" id="endNext">></button>
+    </div>
+
+    <!-- 日期選擇按鈕 -->
+    <div class="mt-3">
+        <button type="button" class="btn btn-outline-primary" id="dayButton">日</button>
+        <button type="button" class="btn btn-outline-primary" id="weekButton">周</button>
+        <button type="button" class="btn btn-outline-primary" id="monthButton">月</button>
+        <button type="button" class="btn btn-outline-primary" id="yearButton">年</button>
+        <button type="button" class="btn btn-outline-primary" id="todayButton">Today</button>
+    </div>
+
+    <!-- 搜尋按鈕 -->
+    <div class="mt-3">
+        <button type="button" class="btn btn-primary" id="searchButton">搜尋</button>
+    </div>
+</div>
+
+<script>
+    jQuery(document).ready(function ($) {
+        // 初始化起始和終止日期為當前日期
+        let startDate = new Date();
+        let endDate = new Date();
+
+        function updateDateDisplay() {
+            $('#startDate').val(startDate.toISOString().split('T')[0]);
+            $('#endDate').val(endDate.toISOString().split('T')[0]);
+        }
+
+        // 設定日期選擇器彈出日曆
+        $('#startDate, #endDate').datepicker({
+            dateFormat: 'yy-mm-dd',
+            onSelect: function (dateText, inst) {
+                if (inst.id === 'startDate') {
+                    startDate = new Date(dateText);
+                } else {
+                    endDate = new Date(dateText);
+                }
+                updateDateDisplay();
+            }
+        });
+
+        // 起始日期左右按鈕事件
+        $('#startPrev').click(function () {
+            if ($('#yearButton').hasClass('btn-primary')) {
+                startDate.setFullYear(startDate.getFullYear() - 1);
+            } else if ($('#monthButton').hasClass('btn-primary')) {
+                startDate.setMonth(startDate.getMonth() - 1);
+            } else if ($('#weekButton').hasClass('btn-primary')) {
+                startDate.setDate(startDate.getDate() - 7);
+            } else {
+                startDate.setDate(startDate.getDate() - 1);
+            }
+            updateDateDisplay();
+        });
+        $('#startNext').click(function () {
+            if ($('#yearButton').hasClass('btn-primary')) {
+                startDate.setFullYear(startDate.getFullYear() + 1);
+            } else if ($('#monthButton').hasClass('btn-primary')) {
+                startDate.setMonth(startDate.getMonth() + 1);
+            } else if ($('#weekButton').hasClass('btn-primary')) {
+                startDate.setDate(startDate.getDate() + 7);
+            } else {
+                startDate.setDate(startDate.getDate() + 1);
+            }
+            updateDateDisplay();
+        });
+
+        // 終止日期左右按鈕事件
+        $('#endPrev').click(function () {
+            if ($('#yearButton').hasClass('btn-primary')) {
+                endDate.setFullYear(endDate.getFullYear() - 1);
+            } else if ($('#monthButton').hasClass('btn-primary')) {
+                endDate.setMonth(endDate.getMonth() - 1);
+            } else if ($('#weekButton').hasClass('btn-primary')) {
+                endDate.setDate(endDate.getDate() - 7);
+            } else {
+                endDate.setDate(endDate.getDate() - 1);
+            }
+            updateDateDisplay();
+        });
+        $('#endNext').click(function () {
+            if ($('#yearButton').hasClass('btn-primary')) {
+                endDate.setFullYear(endDate.getFullYear() + 1);
+            } else if ($('#monthButton').hasClass('btn-primary')) {
+                endDate.setMonth(endDate.getMonth() + 1);
+            } else if ($('#weekButton').hasClass('btn-primary')) {
+                endDate.setDate(endDate.getDate() + 7);
+            } else {
+                endDate.setDate(endDate.getDate() + 1);
+            }
+            updateDateDisplay();
+        });
+
+        // 日期範圍按鈕事件
+        $('#dayButton').click(function () {
+            $(this).addClass('btn-primary').removeClass('btn-outline-primary').siblings().addClass('btn-outline-primary').removeClass('btn-primary');
+        });
+        $('#weekButton').click(function () {
+            $(this).addClass('btn-primary').removeClass('btn-outline-primary').siblings().addClass('btn-outline-primary').removeClass('btn-primary');
+        });
+        $('#monthButton').click(function () {
+            $(this).addClass('btn-primary').removeClass('btn-outline-primary').siblings().addClass('btn-outline-primary').removeClass('btn-primary');
+        });
+        $('#yearButton').click(function () {
+            $(this).addClass('btn-primary').removeClass('btn-outline-primary').siblings().addClass('btn-outline-primary').removeClass('btn-primary');
+        });
+        $('#todayButton').click(function () {
+            startDate = new Date();
+            endDate = new Date();
+            updateDateDisplay();
+            $(this).addClass('btn-primary').removeClass('btn-outline-primary').siblings().addClass('btn-outline-primary').removeClass('btn-primary');
+        });
+
+        // 搜尋按鈕事件，將日期傳遞到後端（此處只是記錄到控制台）
+        $('#searchButton').click(function () {
+            console.log('Search clicked. Start Date: ' + startDate.toISOString().split('T')[0] + ', End Date: ' + endDate.toISOString().split('T')[0]);
+            // 這裡可以用 AJAX 或者表單提交來將日期傳到後端
+        });
+
+        // 初始化日期顯示
+        updateDateDisplay();
+    });
+</script>

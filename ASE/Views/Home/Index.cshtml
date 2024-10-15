@@ -4,57 +4,76 @@
 
 <h2 class="text-center mt-4">資產管理儀表板</h2>
 
+<!-- 嵌入工廠選擇模組 -->
+@Html.Partial("_FactorySelector")
+
+
+<!-- 嵌入日期選擇模組 -->
+@Html.Partial("_DateRangePicker")
+
+
+
+
 <!-- 顯示和隱藏區塊的選項 -->
 <div class="container mt-3">
     <div class="form-check">
         <input type="checkbox" class="form-check-input" id="showAssetSummary" checked>
-        <label class="form-check-label" for="showAssetSummary">顯示資產摘要卡片</label>
+        <label class="form-check-label" for="showAssetSummary">摘要卡片</label>
     </div>
     <div class="form-check">
         <input type="checkbox" class="form-check-input" id="showAssetCharts" checked>
-        <label class="form-check-label" for="showAssetCharts">顯示資產總覽圖表</label>
+        <label class="form-check-label" for="showAssetCharts">總覽圖表</label>
+    </div>
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="showEventStatus" checked>
+        <label class="form-check-label" for="showEventStatus">事件總覽</label>
     </div>
 </div>
 
-<!-- 使用 Gridstack 創建可拖動的區塊 -->
-<div class="grid-stack mt-4">
-    <!-- 資產摘要卡片區塊 -->
-    <div class="grid-stack-item" data-gs-width="6" data-gs-height="2" id="assetSummaryBlock">
-        <div class="grid-stack-item-content">
-            @Html.Partial("_AssetSummaryCards")
-        </div>
-    </div>
+<!-- 嵌入資產摘要卡片 -->
+<div id="assetSummarySection">
+    @Html.Partial("_AssetSummaryCards")
+</div>
 
-    <!-- 資產總覽圖表區塊 -->
-    <div class="grid-stack-item" data-gs-width="6" data-gs-height="3" id="assetChartsBlock">
-        <div class="grid-stack-item-content">
-            @Html.Partial("_AssetCharts")
-        </div>
-    </div>
+<!-- 嵌入資產總覽圖表 -->
+<div id="assetChartsSection">
+    @Html.Partial("_AssetCharts")
+</div>
+
+<!-- 嵌入事件與等級 -->
+<div id="assetChartsSection">
+    @Html.Partial("_EventStatus")
 </div>
 
 <script>
-    $(function () {
-        // 初始化 Gridstack，讓每個區塊可以拖放和縮放
-        var grid = GridStack.init({
-            cellHeight: '150px',
-            animate: true
-        });
-
-        // 使用者勾選顯示或隱藏區塊的事件
+    $(document).ready(function () {
+        // 使用者勾選顯示或隱藏資產摘要卡片區塊
         $('#showAssetSummary').change(function () {
+            console.log("Toggle Asset Summary: " + this.checked);
             if (this.checked) {
-                $('#assetSummaryBlock').show();
+                $('#assetSummarySection').show();
             } else {
-                $('#assetSummaryBlock').hide();
+                $('#assetSummarySection').hide();
             }
         });
 
+        // 使用者勾選顯示或隱藏資產總覽圖表區塊
         $('#showAssetCharts').change(function () {
+            console.log("Toggle Asset Charts: " + this.checked);
             if (this.checked) {
-                $('#assetChartsBlock').show();
+                $('#assetChartsSection').show();
             } else {
-                $('#assetChartsBlock').hide();
+                $('#assetChartsSection').hide();
+            }
+        });
+
+        // 使用者勾選顯示或隱藏事件總覽區塊
+        $('#showEventStatus').change(function () {
+            console.log("Toggle Event Status: " + this.checked);
+            if (this.checked) {
+                $('#showEventStatus').show();
+            } else {
+                $('#showEventStatus').hide();
             }
         });
     });
