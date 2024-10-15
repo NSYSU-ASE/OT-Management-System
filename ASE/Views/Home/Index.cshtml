@@ -41,7 +41,7 @@
 </div>
 
 <!-- 嵌入事件與等級 -->
-<div id="assetChartsSection">
+<div id="assetEventStatus">
     @Html.Partial("_EventStatus")
 </div>
 
@@ -71,9 +71,9 @@
         $('#showEventStatus').change(function () {
             console.log("Toggle Event Status: " + this.checked);
             if (this.checked) {
-                $('#showEventStatus').show();
+                $('#assetEventStatus').show();
             } else {
-                $('#showEventStatus').hide();
+                $('#assetEventStatus').hide();
             }
         });
     });
