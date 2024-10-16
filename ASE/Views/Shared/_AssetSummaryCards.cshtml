@@ -1,35 +1,49 @@
-﻿@* 這是資產摘要卡片的部分視圖 *@
-<div class="container text-center mt-4">
-    <div class="row">
-        <div class="col-md-3">
-            <div class="card bg-info text-white">
-                <div class="card-body">
-                    <h5 class="card-title">總資產</h5>
-                    <p class="card-text">3000 台</p>
+﻿@* 改進後的資產摘要卡片設計 *@
+<div class="event-status-summary text-center mt-4" style="border: 1px solid #ccc; padding: 15px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+    <div class="container text-center mt-4">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card shadow-lg border-0" style="background: linear-gradient(135deg, #6dd5fa, #2980b9); color: white;">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">總資產</h5>
+                            <i class="fas fa-server fa-2x"></i>
+                        </div>
+                        <p class="card-text mt-3 fs-3">3000 台</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-success text-white">
-                <div class="card-body">
-                    <h5 class="card-title">線上資產</h5>
-                    <p class="card-text">2500 台</p>
+            <div class="col-md-3">
+                <div class="card shadow-lg border-0" style="background: linear-gradient(135deg, #56ab2f, #a8e063); color: white;">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">線上資產</h5>
+                            <i class="fas fa-signal fa-2x"></i>
+                        </div>
+                        <p class="card-text mt-3 fs-3">2500 台</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-warning text-white">
-                <div class="card-body">
-                    <h5 class="card-title">異常資產</h5>
-                    <p class="card-text">200 台</p>
+            <div class="col-md-3">
+                <div class="card shadow-lg border-0" style="background: linear-gradient(135deg, #f7971e, #ffd200); color: white;">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">異常資產</h5>
+                            <i class="fas fa-exclamation-triangle fa-2x"></i>
+                        </div>
+                        <p class="card-text mt-3 fs-3">200 台</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-3">
-            <div class="card bg-danger text-white">
-                <div class="card-body">
-                    <h5 class="card-title">離線資產</h5>
-                    <p class="card-text">300 台</p>
+            <div class="col-md-3">
+                <div class="card shadow-lg border-0" style="background: linear-gradient(135deg, #ff4b1f, #ff9068); color: white;">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">離線資產</h5>
+                            <i class="fas fa-times-circle fa-2x"></i>
+                        </div>
+                        <p class="card-text mt-3 fs-3">300 台</p>
+                    </div>
                 </div>
             </div>
         </div>

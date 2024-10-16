@@ -7,12 +7,8 @@
 <!-- 嵌入工廠選擇模組 -->
 @Html.Partial("_FactorySelector")
 
-
 <!-- 嵌入日期選擇模組 -->
 @Html.Partial("_DateRangePicker")
-
-
-
 
 <!-- 顯示和隱藏區塊的選項 -->
 <div class="container mt-3">
@@ -21,12 +17,16 @@
         <label class="form-check-label" for="showAssetSummary">摘要卡片</label>
     </div>
     <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="showAssetCharts" checked>
-        <label class="form-check-label" for="showAssetCharts">總覽圖表</label>
+        <input type="checkbox" class="form-check-input" id="showIndicator" checked>
+        <label class="form-check-label" for="showIndicator">指標度</label>
     </div>
     <div class="form-check">
         <input type="checkbox" class="form-check-input" id="showEventStatus" checked>
         <label class="form-check-label" for="showEventStatus">事件總覽</label>
+    </div>
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="showAssetCharts" checked>
+        <label class="form-check-label" for="showAssetCharts">總覽圖表</label>
     </div>
 </div>
 
@@ -35,15 +35,21 @@
     @Html.Partial("_AssetSummaryCards")
 </div>
 
-<!-- 嵌入資產總覽圖表 -->
-<div id="assetChartsSection">
-    @Html.Partial("_AssetCharts")
+<!-- 嵌入指標度模組 -->
+<div id="indicatorSection">
+    @Html.Partial("_Indicator")
 </div>
 
 <!-- 嵌入事件與等級 -->
 <div id="assetEventStatus">
     @Html.Partial("_EventStatus")
 </div>
+
+<!-- 嵌入資產總覽圖表 -->
+<div id="assetChartsSection">
+    @Html.Partial("_AssetCharts")
+</div>
+
 
 <script>
     $(document).ready(function () {
@@ -74,6 +80,16 @@
                 $('#assetEventStatus').show();
             } else {
                 $('#assetEventStatus').hide();
+            }
+        });
+
+        // 使用者勾選顯示或隱藏指標度區塊
+        $('#showIndicator').change(function () {
+            console.log("Toggle Indicator Section: " + this.checked);
+            if (this.checked) {
+                $('#indicatorSection').show();
+            } else {
+                $('#indicatorSection').hide();
             }
         });
     });

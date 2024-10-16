@@ -1,0 +1,150 @@
+﻿@* 健康度、穩定度、安全度、可用度的指標展示部分視圖 *@
+<div class="event-status-summary text-center mt-4" style="border: 1px solid #ccc; padding: 15px; border-radius: 10px; box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);">
+    <div class="container mt-4">
+        <div class="row text-center">
+            <!-- 健康度指標 -->
+            <div class="col-md-3 mb-4">
+                <div class="card shadow-lg border-0 indicator-card" data-indicator="health" style="background: linear-gradient(135deg, #a6dcef, #2980b9); color: white; cursor: pointer;">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">健康度</h5>
+                        <div class="gauge-chart d-flex justify-content-center">
+                            <!-- 用於渲染健康度的儀表板圖形的畫布 -->
+                            <canvas id="healthGauge" width="150" height="150"></canvas>
+                        </div>
+                        <p class="card-text mt-3 fs-3" id="healthPercentage">85%</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 穩定度指標 -->
+            <div class="col-md-3 mb-4">
+                <div class="card shadow-lg border-0 indicator-card" data-indicator="stability" style="background: linear-gradient(135deg, #a8e063, #56ab2f); color: white; cursor: pointer;">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">穩定度</h5>
+                        <div class="gauge-chart d-flex justify-content-center">
+                            <!-- 用於渲染穩定度的儀表板圖形的畫布 -->
+                            <canvas id="stabilityGauge" width="150" height="150"></canvas>
+                        </div>
+                        <p class="card-text mt-3 fs-3" id="stabilityPercentage">90%</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 安全度指標 -->
+            <div class="col-md-3 mb-4">
+                <div class="card shadow-lg border-0 indicator-card" data-indicator="security" style="background: linear-gradient(135deg, #ffd587, #f7971e); color: white; cursor: pointer;">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">安全度</h5>
+                        <div class="gauge-chart d-flex justify-content-center">
+                            <!-- 用於渲染安全度的儀表板圖形的畫布 -->
+                            <canvas id="securityGauge" width="150" height="150"></canvas>
+                        </div>
+                        <p class="card-text mt-3 fs-3" id="securityPercentage">75%</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 可用度指標 -->
+            <div class="col-md-3 mb-4">
+                <div class="card shadow-lg border-0 indicator-card" data-indicator="availability" style="background: linear-gradient(135deg, #ffb199, #ff4b1f); color: white; cursor: pointer;">
+                    <div class="card-body">
+                        <h5 class="card-title mb-3">可用度</h5>
+                        <div class="gauge-chart d-flex justify-content-center">
+                            <!-- 用於渲染可用度的儀表板圖形的畫布 -->
+                            <canvas id="availabilityGauge" width="150" height="150"></canvas>
+                        </div>
+                        <p class="card-text mt-3 fs-3" id="availabilityPercentage">80%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 使用 Chart.js 創建儀表板圖形的函數
+    function createGaugeChart(canvasId, value, colorStart) {
+        // 獲取指定畫布元素的 2D 繪圖上下文
+        const ctx = document.getElementById(canvasId).getContext('2d');
+        // 使用 Chart.js 創建新的 doughnut（圓環）圖表
+        new Chart(ctx, {
+            type: 'doughnut', // 使用圓環圖來模擬儀表板的效果
+            data: {
+                datasets: [{
+                    data: [value, 100 - value], // 圖表的數據（填充部分和剩餘部分）
+                    backgroundColor: [
+                        colorStart, // 填充部分的顏色，代表指標值
+                        '#e0e0e0' // 剩餘部分的灰色
+                    ],
+                    borderWidth: 0 // 圖表段之間不需要邊框
+                }]
+            },
+            options: {
+                circumference: 180, // 只顯示圓環的一半（180度）
+                rotation: 270, // 從頂部開始（270度）
+                cutout: '75%', // 圓心切除大小，讓圖表看起來像儀表板
+                plugins: {
+                    tooltip: { enabled: false }, // 禁用圖表的工具提示
+                },
+                responsive: false, // 禁用響應式設計，確保圖表大小一致
+                layout: {
+                    padding: {
+                        bottom: 10 // 在底部添加間距以改善佈局
+                    }
+                }
+            }
+        });
+    }
+
+    // 當 DOM 完全加載後創建圖表
+    document.addEventListener('DOMContentLoaded', function () {
+        // 為每個指標創建對應的儀表板圖表，設置值和顏色
+        createGaugeChart('healthGauge', 85, '#a6dcef');
+        createGaugeChart('stabilityGauge', 90, '#a8e063');
+        createGaugeChart('securityGauge', 75, '#ffd587');
+        createGaugeChart('availabilityGauge', 80, '#ffb199');
+
+        // 點擊每個圖表時彈出定義視窗
+        $('.indicator-card').click(function () {
+            const indicatorType = $(this).data('indicator');
+            let message = '';
+            switch (indicatorType) {
+                case 'health':
+                    message = '根據設備使用率、電力消耗、維護頻率、故障報告數量等指標計算得出，用於衡量設備的運行狀況和穩定性。';
+                    break;
+                case 'stability':
+                    message = '根據設備的運行時長、平均故障間隔時間等指標計算得出，用於衡量設備的穩定運行能力。';
+                    break;
+                case 'security':
+                    message = '根據漏洞數量、未知資產數量、安全事件數量等指標計算得出，用於衡量系統的安全風險。';
+                    break;
+                case 'availability':
+                    message = '根據設備使用率、掉包率、平均修復時間等指標計算得出，用於衡量設備的可用性和持續運行能力。';
+                    break;
+            }
+
+            // 使用 Bootstrap 的模態框顯示指標訊息
+            $('#indicatorModal .modal-body').text(message);
+            $('#indicatorModal').modal('show');
+        });
+    });
+</script>
+
+<!-- Bootstrap 模態框結構 -->
+<div class="modal fade" id="indicatorModal" tabindex="-1" aria-labelledby="indicatorModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="indicatorModalLabel">指標說明</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- 指標說明內容將在這裡顯示 -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+            </div>
+        </div>
+    </div>
+</div>
+
