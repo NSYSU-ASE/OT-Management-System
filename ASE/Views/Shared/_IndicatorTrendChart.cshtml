@@ -1,0 +1,96 @@
+﻿@* 指標變化趨勢圖部分視圖 *@
+<div class="container mt-4" id="indicatorTrendSection">
+    <h3 class="text-center mb-4">指標變化趨勢圖</h3>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow-lg border-0" style="padding: 20px;">
+                <canvas id="indicatorTrendChart" width="400" height="200"></canvas>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* 使用 Chart.js 來製作折線圖顯示指標變化趨勢 *@
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 模擬指標數據隨時間的變化
+        const dates = ["2024-10-10", "2024-10-11", "2024-10-12", "2024-10-13", "2024-10-14", "2024-10-15", "2024-10-16"];
+        const healthData = [80, 82, 85, 83, 84, 86, 85];
+        const stabilityData = [88, 89, 90, 91, 90, 92, 90];
+        const securityData = [70, 72, 75, 74, 73, 75, 75];
+        const availabilityData = [78, 80, 80, 81, 82, 83, 80];
+
+        // 獲取畫布的 2D 繪圖上下文
+        const ctx = document.getElementById('indicatorTrendChart').getContext('2d');
+
+        // 使用 Chart.js 創建折線圖
+        new Chart(ctx, {
+            type: 'line', // 使用折線圖來顯示趨勢
+            data: {
+                labels: dates, // 橫軸顯示日期
+                datasets: [
+                    {
+                        label: '健康度',
+                        data: healthData, // 健康度數據
+                        borderColor: '#6dd5fa',
+                        fill: false
+                    },
+                    {
+                        label: '穩定度',
+                        data: stabilityData, // 穩定度數據
+                        borderColor: '#56ab2f',
+                        fill: false
+                    },
+                    {
+                        label: '安全度',
+                        data: securityData, // 安全度數據
+                        borderColor: '#f7971e',
+                        fill: false
+                    },
+                    {
+                        label: '可用度',
+                        data: availabilityData, // 可用度數據
+                        borderColor: '#ff4b1f',
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top', // 圖例位置
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                    }
+                },
+                interaction: {
+                    mode: 'nearest',
+                    axis: 'x',
+                    intersect: false
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: '日期'
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: '指標數值'
+                        },
+                        min: 60, // Y 軸最小值
+                        max: 100 // Y 軸最大值
+                    }
+                }
+            }
+        });
+    });
+</script>
+
+@* 記得加入 Chart.js 來支持折線圖的顯示 *@

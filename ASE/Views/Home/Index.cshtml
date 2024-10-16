@@ -21,6 +21,10 @@
         <label class="form-check-label" for="showIndicator">指標度</label>
     </div>
     <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="showIndicatorTrend" checked>
+        <label class="form-check-label" for="showIndicatorTrend">指標變化趨勢圖</label>
+    </div>
+    <div class="form-check">
         <input type="checkbox" class="form-check-input" id="showEventStatus" checked>
         <label class="form-check-label" for="showEventStatus">事件總覽</label>
     </div>
@@ -40,6 +44,11 @@
     @Html.Partial("_Indicator")
 </div>
 
+<!-- 嵌入指標變化趨勢圖模組 -->
+<div id="indicatorTrendSection">
+    @Html.Partial("_IndicatorTrendChart")
+</div>
+
 <!-- 嵌入事件與等級 -->
 <div id="assetEventStatus">
     @Html.Partial("_EventStatus")
@@ -49,7 +58,6 @@
 <div id="assetChartsSection">
     @Html.Partial("_AssetCharts")
 </div>
-
 
 <script>
     $(document).ready(function () {
@@ -90,6 +98,16 @@
                 $('#indicatorSection').show();
             } else {
                 $('#indicatorSection').hide();
+            }
+        });
+
+        // 使用者勾選顯示或隱藏指標變化趨勢圖區塊
+        $('#showIndicatorTrend').change(function () {
+            console.log("Toggle Indicator Trend Section: " + this.checked);
+            if (this.checked) {
+                $('#indicatorTrendSection').show();
+            } else {
+                $('#indicatorTrendSection').hide();
             }
         });
     });
