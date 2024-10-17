@@ -21,83 +21,184 @@
         container: document.getElementById('cy'), // 繪製圖形的容器
         style: [
             {
+                // 預設節點的樣式設置
                 selector: 'node',
                 style: {
-                    'label': 'data(label)',
+                    'label': 'data(label)', // 顯示節點的標籤
                     'width': 50,
                     'height': 50
                 }
             },
             {
+                // 預設連線的樣式設置
                 selector: 'edge',
                 style: {
-                    'width': 3,
-                    'line-color': '#ccc',
-                    'target-arrow-color': '#ccc',
-                    'target-arrow-shape': 'triangle'
+                    'width': 3, // 邊的寬度
+                    'line-color': '#ccc', // 邊的顏色
+                    'target-arrow-color': '#ccc', // 箭頭的顏色
+                    'target-arrow-shape': 'triangle' // 設定箭頭形狀為三角形
                 }
             },
             {
+                // Router 節點的樣式設置
                 selector: 'node[type="router"]',
                 style: {
-                    'background-color': '#FFA500', // 橙色代表Router
-                    'shape': 'rectangle'
+                    'background-color': '#FFA500', // 橙色代表 Router
+                    'shape': 'rectangle' // 設定形狀為矩形
                 }
             },
             {
+                // Switch 節點的樣式設置
                 selector: 'node[type="switch"]',
                 style: {
-                    'background-color': '#00BFFF', // 天藍色代表Switch
-                    'shape': 'ellipse'
+                    'background-color': '#00BFFF', // 天藍色代表 Switch
+                    'shape': 'ellipse' // 設定形狀為橢圓形
                 }
             },
             {
+                // Server 節點的樣式設置
                 selector: 'node[type="server"]',
                 style: {
-                    'background-color': '#32CD32', // 綠色代表Server
-                    'shape': 'triangle'
+                    'background-color': '#32CD32', // 綠色代表 Server
+                    'shape': 'triangle' // 設定形狀為三角形
                 }
             },
             {
+                // Firewall 節點的樣式設置
                 selector: 'node[type="firewall"]',
                 style: {
-                    'background-color': '#DC143C', // 紅色代表Firewall
-                    'shape': 'diamond'
+                    'background-color': '#DC143C', // 紅色代表 Firewall
+                    'shape': 'diamond' // 設定形狀為菱形
                 }
             },
             {
+                // Workstation 節點的樣式設置
                 selector: 'node[type="workstation"]',
                 style: {
-                    'background-color': '#007bff', // 藍色代表Workstation
+                    'background-color': '#007bff', // 藍色代表 Workstation
                 }
             },
             {
+                // 警告節點的樣式設置
                 selector: 'node.warning',
                 style: {
-                    'background-color': 'red',
-                    'border-color': 'yellow',
-                    'border-width': 3
+                    'background-color': 'red', // 設置節點背景為紅色
+                    'border-color': 'yellow', // 設置邊框顏色為黃色
+                    'border-width': 3 // 邊框寬度為 3
+                }
+            },
+            {
+                // 有漏洞節點的樣式設置
+                selector: 'node.vulnerable',
+                style: {
+                    'border-color': 'red', // 設置邊框顏色為紅色
+                    'border-width': 5 // 邊框寬度為 5
+                }
+            },
+            {
+                // 有漏洞連線的樣式設置
+                selector: 'edge.vulnerable',
+                style: {
+                    'line-color': 'red', // 設置邊的顏色為紅色
+                    'target-arrow-color': 'red' // 設置箭頭顏色為紅色
                 }
             }
         ],
         elements: {
-            nodes: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.nodes)),
-            edges: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.edges))
-            },
+            nodes: [
+                // 定義拓撲圖中的節點
+                { data: { id: '1', label: '設備 1', type: 'switch' } },
+                { data: { id: '2', label: '設備 2', type: 'router' } },
+                { data: { id: '3', label: '設備 3', type: 'router' } },
+                { data: { id: '4', label: '設備 4', type: 'router' } },
+                { data: { id: '5', label: '設備 2-1', type: 'workstation' } },
+                { data: { id: '6', label: '設備 2-2', type: 'workstation' } },
+                // 新增設備2的四個子設備
+                { data: { id: '7', label: '設備 2-3', type: 'workstation' } },
+                { data: { id: '8', label: '設備 2-4', type: 'workstation' } },
+                { data: { id: '9', label: '設備 2-5', type: 'workstation' } },
+                { data: { id: '10', label: '設備 2-6', type: 'workstation' } },
+                // 新增設備3的四個子設備
+                { data: { id: '11', label: '設備 3-1', type: 'workstation' } },
+                { data: { id: '12', label: '設備 3-2', type: 'workstation' } },
+                { data: { id: '13', label: '設備 3-3', type: 'workstation' } },
+                { data: { id: '14', label: '設備 3-4', type: 'workstation' } },
+                // 新增設備4及其五個子設備
+                { data: { id: '15', label: '設備 4-1', type: 'workstation' } },
+                { data: { id: '16', label: '設備 4-2', type: 'workstation' } },
+                { data: { id: '17', label: '設備 4-3', type: 'workstation' } },
+                { data: { id: '18', label: '設備 4-4', type: 'workstation' } },
+                { data: { id: '19', label: '設備 4-5', type: 'workstation' } }
+            ],
+            edges: [
+                // 定義節點之間的連線
+                { data: { source: '1', target: '2' } },
+                { data: { source: '1', target: '3' } },
+                { data: { source: '1', target: '4' } },
+                { data: { source: '2', target: '5' } },
+                { data: { source: '2', target: '6' } },
+                // 新增設備2的連接
+                { data: { source: '2', target: '7' } },
+                { data: { source: '2', target: '8' } },
+                { data: { source: '2', target: '9' } },
+                { data: { source: '2', target: '10' } },
+                // 新增設備3的連接
+                { data: { source: '3', target: '11' } },
+                { data: { source: '3', target: '12' } },
+                { data: { source: '3', target: '13' } },
+                { data: { source: '3', target: '14' } },
+                // 新增設備4的連接
+                { data: { source: '4', target: '15' } },
+                { data: { source: '4', target: '16' } },
+                { data: { source: '4', target: '17' } },
+                { data: { source: '4', target: '18' } },
+                { data: { source: '4', target: '19' } }
+            ]
+        },
         layout: {
-            name: 'breadthfirst',
-            directed: true, // 讓佈局顯示方向
-            padding: 10
+            // 使用 cose 佈局來模擬網路拓撲圖的效果
+            name: 'cose',
+            padding: 10,
+            randomize: true, // 隨機初始化節點位置
+            animate: true, // 使用動畫顯示佈局過程
+            nodeRepulsion: 4500, // 節點間的排斥力，防止節點重疊
+            idealEdgeLength: 100, // 邊的理想長度，用於控制節點間距離
+            gravity: 0.25 // 整體重力，影響佈局的聚集程度
         }
     });
 
     // 點擊節點時，顯示詳細資訊
     cy.on('tap', 'node', function (evt) {
         var node = evt.target;
-        document.getElementById('node-info').innerHTML = '節點ID: ' + node.id() + '<br>設備: ' + node.data('label') + '<br>類型: ' + node.data('type');
+        // 根據節點ID顯示不同的資產詳細資訊
+        var nodeInfo = '';
+        if (node.id() === '3') {
+            // 針對設備3的詳細資訊
+            nodeInfo = '節點ID: ' + node.id() + '<br>' +
+                       '資產名稱：Switch<br>' +
+                       '資產類型：Switch<br>' +
+                       '資產編號：123<br>' +
+                       '資產位置：K12-3F<br>' +
+                       '供應商：無資料<br>' +
+                       '資產狀態：在線<br>' +
+                       '型號：無資料<br>' +
+                       '序列號：無資料<br>' +
+                       '上線日期：2018.10.18<br>' +
+                       '資產使用人：Stanley Peng<br>' +
+                       'IP 地址：192.168.112.101<br>' +
+                       '漏洞ID：CVE-2019-13533<br>' +
+                       '漏洞等級：CRITICAL';
+        } else {
+            // 顯示節點的標準資訊
+            nodeInfo = '節點ID: ' + node.id() + '<br>設備: ' + node.data('label') + '<br>類型: ' + node.data('type');
+        }
+        // 在頁面中顯示所選節點的詳細資訊
+        document.getElementById('node-info').innerHTML = nodeInfo;
     });
 
-    // 模擬設備故障，將指定節點標記為警示
-    var problemNode = cy.getElementById('3'); // 假設設備 3 出現問題
-    problemNode.addClass('warning');
+    // 模擬設備漏洞，將指定節點及其所有連接的邊標記為警示狀態
+    var vulnerableNode = cy.getElementById('3'); // 假設設備 3 有漏洞
+    vulnerableNode.addClass('vulnerable'); // 將節點標記為有漏洞的節點
+    var connectedEdges = vulnerableNode.connectedEdges(); // 獲取與該節點相連的所有邊
+    connectedEdges.addClass('vulnerable'); // 將這些邊標記為有漏洞的狀態
 </script>

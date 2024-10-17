@@ -32,10 +32,10 @@
             <input type="checkbox" class="form-check-input" id="showEventStatus" checked>
             <label class="form-check-label" for="showEventStatus">事件總覽</label>
         </div>
-        <div class="form-check me-3">
+        @* <div class="form-check me-3">
             <input type="checkbox" class="form-check-input" id="showAssetCharts" checked>
             <label class="form-check-label" for="showAssetCharts">總覽圖表</label>
-        </div>
+        </div> *@
         <div class="form-check me-3">
             <input type="checkbox" class="form-check-input" id="showProtocolPieChart" checked>
             <label class="form-check-label" for="showProtocolPieChart">通訊協議圓餅圖</label>
@@ -72,9 +72,9 @@
 </div>
 
 <!-- 嵌入資產總覽圖表 -->
-<div id="assetChartsSection">
+@* <div id="assetChartsSection">
     @Html.Partial("_AssetCharts")
-</div>
+</div> *@
 
 <!-- 嵌入通訊協議圓餅圖模組 -->
 <div id="protocolPieChartSection">
@@ -104,14 +104,14 @@
         });
 
         // 使用者勾選顯示或隱藏資產總覽圖表區塊
-        $('#showAssetCharts').change(function () {
-            console.log("Toggle Asset Charts: " + this.checked);
-            if (this.checked) {
-                $('#assetChartsSection').show();
-            } else {
-                $('#assetChartsSection').hide();
-            }
-        });
+        // $('#showAssetCharts').change(function () {
+        //     console.log("Toggle Asset Charts: " + this.checked);
+        //     if (this.checked) {
+        //         $('#assetChartsSection').show();
+        //     } else {
+        //         $('#assetChartsSection').hide();
+        //     }
+        // });
 
         // 使用者勾選顯示或隱藏事件總覽區塊
         $('#showEventStatus').change(function () {
