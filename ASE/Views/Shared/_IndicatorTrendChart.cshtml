@@ -4,7 +4,9 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card shadow-lg border-0" style="padding: 20px;">
-                <canvas id="indicatorTrendChart" width="400" height="200"></canvas>
+                <div class="chart-container" style="position: relative; height: 400px; width: 100%;">
+                    <canvas id="indicatorTrendChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -58,6 +60,7 @@
             },
             options: {
                 responsive: true,
+                maintainAspectRatio: false, // 禁用維持長寬比，以確保在窗口調整時圖表能夠更好地填充容器
                 plugins: {
                     legend: {
                         position: 'top', // 圖例位置
