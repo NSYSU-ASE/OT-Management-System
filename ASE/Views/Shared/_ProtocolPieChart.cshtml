@@ -1,0 +1,65 @@
+﻿@* 通訊協議圓餅圖部分視圖 *@
+<div class="container mt-4" id="protocolPieChartSection">
+    <h3 class="text-center mb-4">通訊協議數量分佈</h3>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow-lg border-0" style="padding: 20px;">
+                <div class="chart-container" style="position: relative; height: 400px; width: 100%;">
+                    <canvas id="protocolPieChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 通訊協議數據 - 定義協議名稱和對應的數據值
+        const protocolData = {
+            labels: ["Modbus", "FINS", "S7Comm", "SMB"], // 通訊協議名稱
+            datasets: [{
+                data: [6687, 795, 1, 4], // 每個協議的數據值
+                backgroundColor: [
+                    '#4e73df', // Modbus 顏色
+                    '#1cc88a', // FINS 顏色
+                    '#36b9cc', // S7Comm 顏色
+                    '#f6c23e'  // SMB 顏色
+                ],
+                hoverBackgroundColor: [
+                    '#2e59d9', // Modbus 顏色（懸停時）
+                    '#17a673', // FINS 顏色（懸停時）
+                    '#2c9faf', // S7Comm 顏色（懸停時）
+                    '#f4b619'  // SMB 顏色（懸停時）
+                ],
+                borderWidth: 1 // 圓餅圖區塊的邊框寬度
+            }]
+        };
+
+        // 獲取畫布的 2D 繪圖上下文，用於繪製圖表
+        const ctx = document.getElementById('protocolPieChart').getContext('2d');
+
+        // 使用 Chart.js 創建圓餅圖
+        new Chart(ctx, {
+            type: 'pie', // 指定圖表類型為圓餅圖
+            data: protocolData, // 使用上面定義的數據
+            options: {
+                responsive: true, // 使圖表響應式調整大小
+                plugins: {
+                    legend: {
+                        position: 'top', // 圖例位置設置在圖表的上方
+                    },
+                    tooltip: {
+                        callbacks: {
+                            // 自定義工具提示顯示的標籤內容
+                            label: function (tooltipItem) {
+                                const label = protocolData.labels[tooltipItem.dataIndex]; // 獲取協議名稱
+                                const value = protocolData.datasets[0].data[tooltipItem.dataIndex]; // 獲取協議的數據值
+                                return label + ': ' + value; // 返回協議名稱和數據值作為工具提示內容
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>

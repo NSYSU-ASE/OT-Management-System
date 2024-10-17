@@ -10,27 +10,44 @@
 <!-- 嵌入日期選擇模組 -->
 @Html.Partial("_DateRangePicker")
 
-<!-- 顯示和隱藏區塊的選項 -->
+<!-- 區隔線 -->
+<hr style="border-top: 5px solid #e0e0e0;">
+
+<!-- 顯示和隱藏區塊的選項（橫向排列） -->
 <div class="container mt-3">
-    <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="showAssetSummary" checked>
-        <label class="form-check-label" for="showAssetSummary">摘要卡片</label>
-    </div>
-    <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="showIndicator" checked>
-        <label class="form-check-label" for="showIndicator">指標度</label>
-    </div>
-    <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="showIndicatorTrend" checked>
-        <label class="form-check-label" for="showIndicatorTrend">指標變化趨勢圖</label>
-    </div>
-    <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="showEventStatus" checked>
-        <label class="form-check-label" for="showEventStatus">事件總覽</label>
-    </div>
-    <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="showAssetCharts" checked>
-        <label class="form-check-label" for="showAssetCharts">總覽圖表</label>
+    <div class="d-flex flex-wrap justify-content-start">
+        <div class="form-check me-3">
+            <input type="checkbox" class="form-check-input" id="showAssetSummary" checked>
+            <label class="form-check-label" for="showAssetSummary">摘要卡片</label>
+        </div>
+        <div class="form-check me-3">
+            <input type="checkbox" class="form-check-input" id="showIndicator" checked>
+            <label class="form-check-label" for="showIndicator">指標度</label>
+        </div>
+        <div class="form-check me-3">
+            <input type="checkbox" class="form-check-input" id="showIndicatorTrend" checked>
+            <label class="form-check-label" for="showIndicatorTrend">指標變化趨勢圖</label>
+        </div>
+        <div class="form-check me-3">
+            <input type="checkbox" class="form-check-input" id="showEventStatus" checked>
+            <label class="form-check-label" for="showEventStatus">事件總覽</label>
+        </div>
+        <div class="form-check me-3">
+            <input type="checkbox" class="form-check-input" id="showAssetCharts" checked>
+            <label class="form-check-label" for="showAssetCharts">總覽圖表</label>
+        </div>
+        <div class="form-check me-3">
+            <input type="checkbox" class="form-check-input" id="showProtocolPieChart" checked>
+            <label class="form-check-label" for="showProtocolPieChart">通訊協議圓餅圖</label>
+        </div>
+        <div class="form-check me-3">
+            <input type="checkbox" class="form-check-input" id="showAssetTypePieChart" checked>
+            <label class="form-check-label" for="showAssetTypePieChart">資產類型圓餅圖</label>
+        </div>
+        <div class="form-check me-3">
+            <input type="checkbox" class="form-check-input" id="showAssetBrandPieChart" checked>
+            <label class="form-check-label" for="showAssetBrandPieChart">資產廠牌圓餅圖</label>
+        </div>
     </div>
 </div>
 
@@ -57,6 +74,21 @@
 <!-- 嵌入資產總覽圖表 -->
 <div id="assetChartsSection">
     @Html.Partial("_AssetCharts")
+</div>
+
+<!-- 嵌入通訊協議圓餅圖模組 -->
+<div id="protocolPieChartSection">
+    @Html.Partial("_ProtocolPieChart")
+</div>
+
+<!-- 嵌入資產類型圓餅圖模組 -->
+<div id="assetTypePieChartSection">
+    @Html.Partial("_AssetTypePieChart")
+</div>
+
+<!-- 嵌入資產廠牌圓餅圖模組 -->
+<div id="assetBrandPieChartSection">
+    @Html.Partial("_AssetBrandPieChart")
 </div>
 
 <script>
@@ -108,6 +140,36 @@
                 $('#indicatorTrendSection').show();
             } else {
                 $('#indicatorTrendSection').hide();
+            }
+        });
+
+        // 使用者勾選顯示或隱藏通訊協議圓餅圖區塊
+        $('#showProtocolPieChart').change(function () {
+            console.log("Toggle Protocol Pie Chart Section: " + this.checked);
+            if (this.checked) {
+                $('#protocolPieChartSection').show();
+            } else {
+                $('#protocolPieChartSection').hide();
+            }
+        });
+
+        // 使用者勾選顯示或隱藏資產類型圓餅圖區塊
+        $('#showAssetTypePieChart').change(function () {
+            console.log("Toggle Asset Type Pie Chart Section: " + this.checked);
+            if (this.checked) {
+                $('#assetTypePieChartSection').show();
+            } else {
+                $('#assetTypePieChartSection').hide();
+            }
+        });
+
+        // 使用者勾選顯示或隱藏資產廠牌圓餅圖區塊
+        $('#showAssetBrandPieChart').change(function () {
+            console.log("Toggle Asset Brand Pie Chart Section: " + this.checked);
+            if (this.checked) {
+                $('#assetBrandPieChartSection').show();
+            } else {
+                $('#assetBrandPieChartSection').hide();
             }
         });
     });

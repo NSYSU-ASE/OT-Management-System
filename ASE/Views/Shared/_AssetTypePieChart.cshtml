@@ -1,0 +1,69 @@
+﻿@* 資產類型圓餅圖部分視圖 *@
+<div class="container mt-4" id="assetTypePieChartSection">
+    <h3 class="text-center mb-4">資產類型數量分佈</h3>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow-lg border-0" style="padding: 20px;">
+                <div class="chart-container" style="position: relative; height: 400px; width: 100%;">
+                    <canvas id="assetTypePieChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 資產類型數據 - 定義資產類型名稱和對應的數據值
+        const assetTypeData = {
+            labels: ["AV Server", "Endpoint", "Gateway", "HMI", "Networking", "PLC"], // 資產類型名稱
+            datasets: [{
+                data: [3, 56, 3, 5, 13, 173], // 每個資產類型的數據值
+                backgroundColor: [
+                    '#f28e2c', // AV Server 顏色
+                    '#e15759', // Endpoint 顏色
+                    '#76b7b2', // Gateway 顏色
+                    '#59a14f', // HMI 顏色
+                    '#edc949', // Networking 顏色
+                    '#af7aa1'  // PLC 顏色
+                ],
+                hoverBackgroundColor: [
+                    '#d17e24', // AV Server 顏色（懸停時）
+                    '#c74347', // Endpoint 顏色（懸停時）
+                    '#609a9b', // Gateway 顏色（懸停時）
+                    '#4e8d3e', // HMI 顏色（懸停時）
+                    '#d3aa30', // Networking 顏色（懸停時）
+                    '#9c6392'  // PLC 顏色（懸停時）
+                ],
+                borderWidth: 1 // 圓餅圖區塊的邊框寬度
+            }]
+        };
+
+        // 獲取資產類型圓餅圖的 2D 繪圖上下文，用於繪製圖表
+        const ctxAssetType = document.getElementById('assetTypePieChart').getContext('2d');
+
+        // 使用 Chart.js 創建資產類型圓餅圖
+        new Chart(ctxAssetType, {
+            type: 'pie', // 指定圖表類型為圓餅圖
+            data: assetTypeData, // 使用上面定義的數據
+            options: {
+                responsive: true, // 使圖表響應式調整大小
+                plugins: {
+                    legend: {
+                        position: 'top', // 圖例位置設置在圖表的上方
+                    },
+                    tooltip: {
+                        callbacks: {
+                            // 自定義工具提示顯示的標籤內容
+                            label: function (tooltipItem) {
+                                const label = assetTypeData.labels[tooltipItem.dataIndex]; // 獲取資產類型名稱
+                                const value = assetTypeData.datasets[0].data[tooltipItem.dataIndex]; // 獲取資產類型的數據值
+                                return label + ': ' + value; // 返回資產類型名稱和數據值作為工具提示內容
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>

@@ -1,0 +1,63 @@
+﻿@* 資產廠牌圓餅圖部分視圖 *@
+<div class="container mt-4" id="assetBrandPieChartSection">
+    <h3 class="text-center mb-4">資產廠牌數量分佈</h3>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card shadow-lg border-0" style="padding: 20px;">
+                <div class="chart-container" style="position: relative; height: 400px; width: 100%;">
+                    <canvas id="assetBrandPieChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // 資產廠牌數據 - 定義資產廠牌名稱和對應的數據值
+        const assetBrandData = {
+            labels: ["iFix", "GE iFix", "Omron"], // 資產廠牌名稱
+            datasets: [{
+                data: [1, 11, 124], // 每個廠牌的數據值
+                backgroundColor: [
+                    '#4e73df', // iFix 顏色
+                    '#1cc88a', // GE iFix 顏色
+                    '#36b9cc'  // Omron 顏色
+                ],
+                hoverBackgroundColor: [
+                    '#2e59d9', // iFix 顏色（懸停時）
+                    '#17a673', // GE iFix 顏色（懸停時）
+                    '#2c9faf'  // Omron 顏色（懸停時）
+                ],
+                borderWidth: 1 // 圓餅圖區塊的邊框寬度
+            }]
+        };
+
+        // 獲取資產廠牌圓餅圖的 2D 繪圖上下文，用於繪製圖表
+        const ctxAssetBrand = document.getElementById('assetBrandPieChart').getContext('2d');
+
+        // 使用 Chart.js 創建資產廠牌圓餅圖
+        new Chart(ctxAssetBrand, {
+            type: 'pie', // 指定圖表類型為圓餅圖
+            data: assetBrandData, // 使用上面定義的數據
+            options: {
+                responsive: true, // 使圖表響應式調整大小
+                plugins: {
+                    legend: {
+                        position: 'top', // 圖例位置設置在圖表的上方
+                    },
+                    tooltip: {
+                        callbacks: {
+                            // 自定義工具提示顯示的標籤內容
+                            label: function (tooltipItem) {
+                                const label = assetBrandData.labels[tooltipItem.dataIndex]; // 獲取資產廠牌名稱
+                                const value = assetBrandData.datasets[0].data[tooltipItem.dataIndex]; // 獲取資產廠牌的數據值
+                                return label + ': ' + value; // 返回資產廠牌名稱和數據值作為工具提示內容
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    });
+</script>
